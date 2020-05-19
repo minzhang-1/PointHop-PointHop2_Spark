@@ -26,7 +26,7 @@ If you find our work useful in your research, please consider citing:
 
 ### Installation
 
-The code has been tested with Python 2.7 and 3.5. You may need to install h5py, sklearn, pickle and pyspark packages.
+The code has been tested with Python 2.7 and 3.5, Java 8.0. You may need to install h5py, sklearn, pickle and pyspark packages.
 
 To check your java version:
 ```bash
