@@ -164,9 +164,9 @@ def sg_cw(sample, fea, nn_idx):
 
 def pca_cw(sgRDD, pre_energy, threshold):
     '''
-    :param sg_fea:(M*K, 24)
-    :return: kernels (24, 24)
-    :return: energy (24)
+    :param sg_fea:(M*K, dim, channel)
+    :return: kernels (channel, dim, dim)
+    :return: energy (channel, dim)
     '''
     kernels = []
     energies = []
