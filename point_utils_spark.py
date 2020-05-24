@@ -164,7 +164,9 @@ def sg_cw(sample, fea, nn_idx):
 
 def pca_cw(sgRDD, pre_energy, threshold):
     '''
-    :param sg_fea:(M*K, dim, channel)
+    :param sgRDD: (M*K, dim, channel)
+    :param pre_energy: (channel, )
+    :param threshold: float
     :return: kernels (channel, dim, dim)
     :return: energy (channel, dim)
     '''
@@ -201,9 +203,9 @@ def pca_cw(sgRDD, pre_energy, threshold):
 
 def pca(sgRDD):
     '''
-    :param sg_fea:(M*K, 24)
-    :return: kernels (24, 24)
-    :return: energy (24)
+    :param sgRDD:(M*K, dim)
+    :return: kernels (dim, dim)
+    :return: energy (dim)
     '''
     dc = np.array(sgRDD.map(lambda x: np.mean(x)).collect())
     sgRDD = sgRDD.map(lambda x: x - np.mean(x))
@@ -230,8 +232,7 @@ def pca(sgRDD):
 def extract(feat):
     '''
     Do feature extraction based on the provided feature.
-    :param feat: [num_layer, num_samples, feature_dimension]
-    # :param pooling: pooling method to be used
+    :param feat: [num_layer, num_samples, num_points, feature_dimension]
     :return: feature
     '''
     mean = []
@@ -255,8 +256,7 @@ def extract(feat):
 def extract_single(feat):
     '''
     Do feature extraction based on the provided feature.
-    :param feat: [num_layer, num_samples, feature_dimension]
-    # :param pooling: pooling method to be used
+    :param feat: [num_samples, num_points, feature_dimension]
     :return: feature
     '''
     feature = []
@@ -357,19 +357,9 @@ if __name__ == '__main__':
     knnRDD = fpsRDD.zip(pointRDD).map(lambda x: knn(x[0], x[1], 64))
     sgRDD = pointRDD.zip(knnRDD).flatMap(lambda x: sg(x[0], x[0], x[1]))
     kernels, energy = pca(sgRDD)
-    print(energy)
-    # num_partition = 1500
-    # train, stat = shapenet_data.data_load(1024, 'train')
-    # train_data = train['data']
-    # print('data loaded!')
-    # sg_fea = np.array(sc.parallelize(train_data, num_partition).map(lambda x: fps_knn_sg(x, x, 20, 10)).collect())
-    # s1, s2, s3 = sg_fea.shape
-    # sg_fea = sg_fea.reshape((-1, s3))
-    #
-    # kernels, energy = pca(sc, num_partition, sg_fea)
-    # pca_fea = np.array(sc.parallelize(sg_fea, num_partition).map(lambda x: np.dot(x, kernels[:5].T)).collect())
-    # pca_fea = pca_fea.reshape((s1, s2, -1))
-    # print(pca_fea.shape)
+    pca_fea = np.array(sgRDD.map(lambda x: np.dot(x, kernels[:5].T)).collect())
+    pca_fea = pca_fea.reshape((train_data.shape[0], 128, -1))
+    print('PointHop Unit Finish! Feature shape: ', pca_fea.shape)
 
     sc.stop()
     time_end = time.time()
