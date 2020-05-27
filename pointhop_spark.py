@@ -25,6 +25,7 @@ def pointhop_train(data, n_newpoint, n_sample, n_kernel, num_partition):
     :param n_newpoint: point numbers used in every stage
     :param n_sample: k nearest neighbors
     :param n_kernel: num kernels to be preserved
+    :param num_partition: partition num for rdd
     :return: pca_params, feature
     '''
 
@@ -78,11 +79,12 @@ def pointhop_train(data, n_newpoint, n_sample, n_kernel, num_partition):
 
 def pointhop_pred(data, n_newpoint, n_sample, pca_params, num_partition):
     '''
-    Train based on the provided samples.
+    Test based on the provided samples.
     :param data: [num_samples, num_point, feature_dimension]
     :param n_newpoint: point numbers used in every stage
     :param n_sample: k nearest neighbors
     :param pca_params: model to be used
+    :param num_partition: partition num for rdd
     :return: feature
     '''
 
