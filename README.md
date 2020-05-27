@@ -2,7 +2,7 @@
 Created by [Min Zhang](https://github.com/minzhang-1)
 
 ### Introduction
-This work is an improvered implementation of our [PointHop method](https://arxiv.org/abs/1907.12766) and [PointHop++ method](https://arxiv.org/abs/2002.03281), which is built upon Apache Spark. With 12 cores (Intel (R) core ™ i7-5930k CPU @ 3.5GHZ), PointHop finishes in 20 minutes using less than 12GB memory, and PointHop++ finishes in 40 minutes using less than 14GB memory. 
+This work is an improved implementation of our [PointHop method](https://arxiv.org/abs/1907.12766) and [PointHop++ method](https://arxiv.org/abs/2002.03281), which is built upon Apache Spark. With 12 cores (Intel (R) core ™ i7-5930k CPU @ 3.5GHZ), PointHop finishes in 20 minutes using less than 12GB memory, and PointHop++ finishes in 40 minutes using less than 14GB memory. 
 
 In this repository, we release code and data for training a baseline of PointHop and PointHop++ classification network on point clouds sampled from 3D shapes.
 
@@ -45,7 +45,7 @@ PYSPARK_DRIVER_PYTHON=/usr/bin/python3
 ```
 
 ### Usage
-To train ann test a single PointHop model without feature selection and ensemble to classify point clouds sampled from 3D shapes:
+To train and test a single PointHop model without ensemble to classify point clouds sampled from 3D shapes:
 
     python3 pointhop_spark.py
 
