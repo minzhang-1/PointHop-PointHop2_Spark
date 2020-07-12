@@ -11,7 +11,7 @@ from sklearn.metrics import accuracy_score
 config = SparkConf().setAll(
     [('spark.driver.memory', '12g'),
      ('spark.executor.memory', '6g'),
-     ('spark.driver.maxResultSize', '12g')]).setAppName('PCSEG').setMaster('local[*]')
+     ('spark.driver.maxResultSize', '12g')]).setAppName('POINTHOP').setMaster('local[*]')
 sc = SparkContext(conf=config)
 sc.setLogLevel("ERROR")
 
